@@ -1,0 +1,4 @@
+1-update the composer
+2-run npm install
+3-run npm run dev
+4-in new powershell(terminal) run php artisan serve to start the project

@@ -22,6 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+//Auth routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -34,7 +35,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\PictureController;
 
 
-Route::prefix('album')->group(function () {
+Route::middleware('auth')->prefix('album')->group(function () {
 //Album routes
     Route::get('/', [AlbumController::class, 'index'])->name('albums.index');
     Route::get('/create', [AlbumController::class, 'create'])->name('albums.create');
@@ -47,7 +48,6 @@ Route::prefix('album')->group(function () {
     Route::put('/{id}/confirm-move-pictures', [AlbumController::class, 'confirmMovePictures'])->name('albums.move.confirm');
     
 //Pictures routes
-
     Route::get('/{albumId}/pictures/create', [PictureController::class, 'create'])->name('pictures.create');
     Route::post('/{albumId}/pictures', [PictureController::class, 'store'])->name('pictures.store');
 });
